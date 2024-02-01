@@ -1,0 +1,30 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}Clientes{% endblock %}
+</head>
+
+{% block content %}
+<br>
+<h2 style="text-align: center;">Lista de Clientes</h2>
+<button type="button" class="btn btn-outline-primary"><a href="{% url 'new_customer' %}">Crear Nuevo Cliente</a></button>
+<br>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Telefono</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.telephone_number }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

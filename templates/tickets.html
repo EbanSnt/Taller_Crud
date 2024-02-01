@@ -1,0 +1,32 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}Presupuestos{% endblock %}
+</head>
+
+{% block content %}
+<br>
+<h2 style="text-align: center;">Lista de Presupuestos</h2>
+<button type="button" class="btn btn-outline-primary"><a href="{% url 'new_ticket' %}">Crear Nuevo Presupuesto</a></button>
+<br>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Producto</th>
+        <th scope="col">Falla</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.ticket_number }}</td>
+            <td>{{ ticket.customer_id.name }}</td>
+            <td>{{ ticket.product }} - {{ ticket.trademark }}</td>
+            <td>{{ ticket.failure }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
