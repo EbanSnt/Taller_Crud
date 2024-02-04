@@ -9,16 +9,76 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Nombre</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
+      <label for="exampleInputEmail1" class="form-label">Numero de presupuesto</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="ticket_number">
       <div id="emailHelp" class="form-text">Introducir Nombre Completo (Persona o Empresa)</div>
     </div>
+  
 
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Telefono</label>
-        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telephone_number">
-        <div id="emailHelp" class="form-text">Introducir Telefono o Celular</div>
+        <label for="exampleInputEmail1" class="form-label">Cliente</label>
+        <select name="customer_id" id="customer_id">
+          {% for customer in customers %}
+            <option value="{{ customer.id }}">{{ customer.name }}</option>
+          {% endfor %}
+        </select>
       </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Producto</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product">
+    </div>
+
+    
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Marca</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="trademark">
+    </div>
+  
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Modelo</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="version">
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Numero de Serie</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="serial_number">
+    </div>
+
+  
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Falla</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="failure">
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Foto1</label>
+      <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product_image1">
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Foto2</label>
+      <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product_image2">
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Foto3</label>
+      <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product_image3">
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Descripcion</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description">
+    </div>
+
+    
     <button type="submit" class="btn btn-primary">Crear</button>
   </form>
 

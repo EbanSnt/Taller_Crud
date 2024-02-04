@@ -6,7 +6,7 @@
 {% block content %}
 <br>
 <h2 style="text-align: center;">Lista de Clientes</h2>
-<button type="button" class="btn btn-outline-primary"><a href="{% url 'new_customer' %}">Crear Nuevo Cliente</a></button>
+<a href="{% url 'new_customer' %}"><button type="button" class="btn btn-outline-primary">Crear Nuevo Cliente</button></a>
 <br>
 
 <table class="table table-striped">
@@ -15,6 +15,7 @@
         <th scope="col">ID</th>
         <th scope="col">Nombre</th>
         <th scope="col">Telefono</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -23,6 +24,8 @@
             <td>{{ customer.id }}</td>
             <td>{{ customer.name }}</td>
             <td>{{ customer.telephone_number }}</td>
+            <td><a href="#"><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
+            <td><a href="#"><button type="button" class="btn btn-outline-danger">Eliminar</button></a></td>
         </tr>
         {% endfor %}
     </tbody>

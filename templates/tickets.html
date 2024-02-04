@@ -6,7 +6,7 @@
 {% block content %}
 <br>
 <h2 style="text-align: center;">Lista de Presupuestos</h2>
-<button type="button" class="btn btn-outline-primary"><a href="{% url 'new_ticket' %}">Crear Nuevo Presupuesto</a></button>
+<a href="{% url 'new_ticket' %}"><button type="button" class="btn btn-outline-primary">Crear Nuevo Presupuesto</button></a>
 <br>
 
 <table class="table table-striped">
@@ -16,6 +16,8 @@
         <th scope="col">Cliente</th>
         <th scope="col">Producto</th>
         <th scope="col">Falla</th>
+        <th scope="col">Foto</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +27,9 @@
             <td>{{ ticket.customer_id.name }}</td>
             <td>{{ ticket.product }} - {{ ticket.trademark }}</td>
             <td>{{ ticket.failure }}</td>
+            <td><img src="/media/{{ ticket.product_image1 }}" alt="Foto del Producto" style="max-width: 200px; max-height: 200px;"></td>
+            <td><a href="# "><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
+            <td><a href="#"><button type="button" class="btn btn-outline-danger">Eliminar</button></a></td>
         </tr>
         {% endfor %}
     </tbody>

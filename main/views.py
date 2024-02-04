@@ -22,6 +22,7 @@ def create_customer(request):
 
 
 def create_ticket(request):
+    customers = Customers.objects.all()
     if request.method == "POST":
         ticket_number = request.POST["ticket_number"]
         customer_id = request.POST["customer_id"]
@@ -37,8 +38,9 @@ def create_ticket(request):
         description = request.POST["description"]
         Tickets.objects.create(ticket_number=ticket_number,customer_id=customer,product=product,trademark=trademark,version=version,serial_number=serial_number,failure=failure,product_image1=product_image1,product_image2=product_image2,product_image3=product_image3,description=description)
         return redirect("all_tickets")
-    else:  
-        return render(request, "new_ticket.html")
+    else:
+        context = {"customers":customers}
+        return render(request, "new_ticket.html",context)
 
 
 def create_warranty_product(request):
@@ -99,3 +101,20 @@ def show_all_delivered_products(request):
         return render(request, "delivered_products.html",context)
     except:
         return render(request, "delivered_products.html")
+
+
+### TODOS LOS "UPDATE" ###
+    
+def update_customer(request,customer_id):
+    customer = Customers.objects.get(id=customer_id)
+    tickets = Tickets.objects.filter(customer_id=customer_id)
+    context = {"customer":customer, "tickets":tickets}
+    #warranties = WarrantyProducts.objects.filter(ticket_id=customer_id)
+    try:
+        if request.method == "POST":
+            customer.name = request.POST["name"]
+            customer.telephone_number = request.POST["telephone_number"]
+            customer.save()
+            return redirect("update_customer")
+    except:
+        return render(request, "update_customer.html",context)
