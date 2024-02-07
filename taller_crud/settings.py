@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'taller_database',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '123456', #Cambiar usuario y contraseña si se requiere
         'HOST': 'localhost',  
         'PORT': '3306',    
     }
