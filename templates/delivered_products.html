@@ -1,0 +1,31 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}P.Entregados{% endblock %}
+</head>
+
+{% block content %}
+<br>
+<h2 class="main_titles">Lista de Productos Entregados</h2>
+<a href="{% url 'new_delivered_product' %}"><button type="button" class="btn btn-outline-primary">Nuevo Retiro de Producto</button></a>
+<br>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Presupuesto</th>
+        <th scope="col">Fecha</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for delivered in delivered_products %}
+        <tr>
+            <td>{{ delivered.ticket_id.ticket_number }}</td>
+            <td>{{ delivered.date|date:"d/m/Y" }}</td>
+            <td><a href="{% url 'update_delivered_product' delivered.id %}"><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
+            <td><a href="{% url 'delete_delivered_product' delivered.id %}"><button type="button" class="btn btn-outline-danger">Eliminar</button></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

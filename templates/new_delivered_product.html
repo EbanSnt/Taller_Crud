@@ -1,0 +1,22 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}P.Entregados{% endblock %}
+</head>
+
+{% block content %}
+<h2 class="main_titles">Registrar nueva salida</h2>
+<br>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Presupuesto</label>
+        <select name="ticket_id">
+          {% for ticket in tickets %}
+            <option value="{{ ticket.id }}">{{ ticket.ticket_number }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+
+  {% endblock %}

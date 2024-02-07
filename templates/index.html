@@ -4,5 +4,38 @@
 </head>
 
 {% block content %}
-<h1>HOLA</h1>
+<h1 class="main_titles">Base de Datos Multiservice</h1>
+<h2>Partes:</h2>
+<h3>Clientes</h3>
+<p>Aqui se guarda los clientes del Local</p>
+<ul>
+  <li>Nombre</li>
+  <li>Telefono</li>
+</ul>
+<h3>Presupuestos</h3>
+<p>Aqui se guarda los presupuestos (productos que ingresan por 1ra vez) del Local</p>
+<ul>
+  <li>Numero de Presupuesto</li>
+  <li>Cliente (Se requiere haber cargado el cliente anteriormente)</li>
+  <li>Producto (Electrodomestico)</li>
+  <li>Marca del Producto</li>
+  <li>Modelo del Producto</li>
+  <li>Numero de Serie del Producto</li>
+  <li>Falla</li>
+  <li>3 Imagenes Opcionales (Se Recomienda Subir 1 Imagen)</li>
+  <li>Descripcion</li>
+  <li>Entregado (Si el producto se encuentra en el local. SI/NO)</li>
+</ul>
+<h3>Garantias</h3>
+<p>Aqui se guarda los presupuestos que ya han sido retirados pero que ingresaron de nuevo</p>
+<li>Numero de Presupuesto</li>
+<li>Descripcion</li>
+<li>Entregado (Si el producto se encuentra en el local. SI/NO)</li>
+<h3>Retirados</h3>
+<p>Aqui se guarda los presupuestos que se entregan. Al momento de Crearse,se establece la fecha actual por defecto (No modificable)</p>
+<li>Numero de Presupuesto</li>
+<li>Fecha (Actual. No modificable)</li>
+<li>Entregado (Si el producto se encuentra en el local. SI/NO)</li>
+<br>
+
 {% endblock %}

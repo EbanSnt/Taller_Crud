@@ -5,8 +5,18 @@
 
 {% block content %}
 <br>
-<h2 style="text-align: center;">Lista de Presupuestos</h2>
-<a href="{% url 'new_ticket' %}"><button type="button" class="btn btn-outline-primary">Crear Nuevo Presupuesto</button></a>
+<h2 class="main_titles">Lista de Presupuestos</h2>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <form class="d-flex" role="search" method="get" action="{% url 'all_tickets' %}">
+      <input class="form-control me-2" type="search" placeholder="Numero de Presupuesto" aria-label="Search" name="ticket_search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <a href="{% url 'all_tickets' %}"><button type="button" class="btn btn-info">Refrescar</button></a>
+    <a href="{% url 'new_ticket' %}"><button type="button" class="btn btn-outline-primary">Nuevo Presupuesto</button></a>
+  </div>
+</nav>
+
 <br>
 
 <table class="table table-striped">
@@ -17,7 +27,9 @@
         <th scope="col">Producto</th>
         <th scope="col">Falla</th>
         <th scope="col">Foto</th>
+        <th scope="col">Entregado</th>
         <th scope="col"></th>
+        
       </tr>
     </thead>
     <tbody>
@@ -28,8 +40,13 @@
             <td>{{ ticket.product }} - {{ ticket.trademark }}</td>
             <td>{{ ticket.failure }}</td>
             <td><img src="/media/{{ ticket.product_image1 }}" alt="Foto del Producto" style="max-width: 200px; max-height: 200px;"></td>
-            <td><a href="# "><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
-            <td><a href="#"><button type="button" class="btn btn-outline-danger">Eliminar</button></a></td>
+            {% if ticket.local == 1 %}
+              <td>No</td>
+            {% else %}
+              <td>Si</td>
+            {% endif %}
+            <td><a href="{% url 'update_ticket' ticket.id %}"><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
+            <td><a href="{% url 'delete_ticket' ticket.id %}"><button type="button" class="btn btn-outline-danger">Eliminar</button></a></td>
         </tr>
         {% endfor %}
     </tbody>

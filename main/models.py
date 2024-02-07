@@ -21,7 +21,6 @@ class Tickets(models.Model):
     local = models.BooleanField(default=True)
 
 class WarrantyProducts(models.Model):
-    customer_id = models.ForeignKey(Customers, on_delete=models.SET_NULL, null=True)
     ticket_id = models.ForeignKey(Tickets, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=300)
     local = models.BooleanField(default=True)

@@ -1,12 +1,24 @@
 {% extends 'header.html' %}
 <head>
+ 
   {% block title %}Clientes{% endblock %}
+  
 </head>
 
 {% block content %}
 <br>
-<h2 style="text-align: center;">Lista de Clientes</h2>
-<a href="{% url 'new_customer' %}"><button type="button" class="btn btn-outline-primary">Crear Nuevo Cliente</button></a>
+<h2 class="main_titles">Lista de Clientes</h2>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <form class="d-flex" role="search" method="get" action="{% url 'all_customers' %}">
+      <input class="form-control me-2" type="search" placeholder="Nombre de Cliente" aria-label="Search" name="customer_search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <a href="{% url 'all_customers' %}"><button type="button" class="btn btn-info">Refrescar</button></a>
+    <a href="{% url 'new_customer' %}"><button type="button" class="btn btn-outline-primary">Nuevo Cliente</button></a>
+  </div>
+</nav>
+
 <br>
 
 <table class="table table-striped">
@@ -24,10 +36,11 @@
             <td>{{ customer.id }}</td>
             <td>{{ customer.name }}</td>
             <td>{{ customer.telephone_number }}</td>
-            <td><a href="#"><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
-            <td><a href="#"><button type="button" class="btn btn-outline-danger">Eliminar</button></a></td>
+            <td><a href="{% url 'update_customer' customer.id %}"><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
+            <td><a href="{% url 'delete_customer' customer.id %}"><button type="button" class="btn btn-outline-danger" id="delete_button">Eliminar</button></a></td>
         </tr>
         {% endfor %}
     </tbody>
+    
   </table>
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}P.Entregados{% endblock %}
+</head>
+
+{% block content %}
+<h2 class="main_titles">Modificar Presupuesto Retirado {{ delivered_product.ticket_id.ticket_number }}</h2>
+<br>
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label class="form-label">Ticket</label>
+        <select name="ticket_id">
+          {% for ticket in tickets %}
+            {% if delivered_product.ticket_id.id == ticket.id %}
+                <option value="{{ delivered_product.ticket_id.id }}" selected>{{ delivered_product.ticket_id.ticket_number }}</option>
+            {% else %}
+              <option value="{{ ticket.id }}">{{ ticket.ticket_number }}</option>
+            {% endif %}
+            
+          {% endfor %}
+        </select>
+      </div>
+    <button type="submit" class="btn btn-primary">Modificar</button>
+  </form>
+
+  {% endblock %}

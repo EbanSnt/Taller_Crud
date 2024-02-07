@@ -4,28 +4,33 @@
 </head>
 
 {% block content %}
-<h2 style="text-align: center;">{{ customer.name }}</h2>
+<h2 class="main_titles">{{ customer.name }}</h2>
+{% if tickets %}
 <h3>PRESUPUESTOS:</h3>
 <br>
 {% for ticket in tickets %}
-    <h4>{{ ticket.ticket_number }}</h4>
-    
+    <h4>N° {{ ticket.ticket_number }}</h4>
+    <ul>
+      <li>PRODUCTO: {{ ticket.product }}</li>
+      <li>MODELO: {{ ticket.trademark }} - {{ ticket.version }}</li>
+      <li>NUMERO DE SERIE: {{ ticket.serial_number }}</li>
+      <li>FALLA: {{ ticket.failure }}</li>
+    </ul>
 {% endfor %}
+{% endif %}
 <br>
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Nombre</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
-      <div id="emailHelp" class="form-text">Introducir Nombre Completo (Persona o Empresa)</div>
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="name" value="{{ customer.name }}">
     </div>
 
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Telefono</label>
-        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telephone_number">
-        <div id="emailHelp" class="form-text">Introducir Telefono o Celular</div>
+        <label class="form-label">Telefono o Celular</label>
+        <input type="number" class="form-control"  aria-describedby="emailHelp" name="telephone_number" value="{{ customer.telephone_number }}">
       </div>
-    <button type="submit" class="btn btn-primary">Crear</button>
+    <button type="submit" class="btn btn-primary">Modificar</button>
   </form>
 
   {% endblock %}

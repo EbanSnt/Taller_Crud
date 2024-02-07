@@ -4,20 +4,20 @@
 </head>
 
 {% block content %}
-<h2 style="text-align: center;">Crear un Nuevo Cliente</h2>
+<h2 class="main_titles">Crear un Nuevo Cliente</h2>
 <br>
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Nombre</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
-      <div id="emailHelp" class="form-text">Introducir Nombre Completo (Persona o Empresa)</div>
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="name" >
+      <div class="form-text">Introducir Nombre Completo (Persona o Empresa)</div>
     </div>
 
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Telefono</label>
+        <label class="form-label">Telefono</label>
         <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telephone_number">
-        <div id="emailHelp" class="form-text">Introducir Telefono o Celular</div>
+        <div class="form-text">Introducir Telefono o Celular</div>
       </div>
     <button type="submit" class="btn btn-primary">Crear</button>
   </form>

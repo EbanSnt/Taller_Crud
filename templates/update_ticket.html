@@ -1,0 +1,88 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}Presupuestos{% endblock %}
+</head>
+
+{% block content %}
+<h2 class="main_titles">Actualizar Presupuesto</h2>
+<br>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label  class="form-label">Numero de presupuesto</label>
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="ticket_number" value="{{ ticket.ticket_number}}">
+      <div  class="form-text">Introducir Nombre Completo (Persona o Empresa)</div>
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Cliente</label>
+        <select name="customer_id" id="customer_id">
+          {% for customer in customers %}
+            {% if customer.name == ticket.customer_id.name %}
+                <option value="{{ ticket.customer_id.id }}" selected>{{ ticket.customer_id.name }}</option>
+            {% endif %}
+            <option value="{{ customer.id }}">{{ customer.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+    <div class="mb-3">
+      <label  class="form-label">Producto</label>
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="product" value="{{ ticket.product }}">
+    </div>
+
+    <div class="mb-3">
+      <label  class="form-label">Marca</label>
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="trademark" value="{{ ticket.trademark }}">
+    </div>
+  
+    <div class="mb-3">
+      <label  class="form-label">Modelo</label>
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="version" value="{{ ticket.version }}">
+    </div>
+
+    <div class="mb-3">
+      <label  class="form-label">Numero de Serie</label>
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="serial_number" value="{{ ticket.serial_number }}">
+    </div>
+
+    <div class="mb-3">
+      <label  class="form-label">Falla</label>
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="failure" value="{{ ticket.failure }}">
+    </div>
+
+    <div class="mb-3">
+      <label  class="form-label">Descripcion</label>
+      <textarea class="form-control"  aria-describedby="emailHelp" name="description"  rows="3">{{ ticket.description }}</textarea>
+    </div>
+
+    <div class="mb-3 form-check">
+      {% if ticket.local == 1 %}
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" value=0 name="local">
+      {% else %}
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" value=1 name="local" checked >
+      {% endif %}
+      <label class="form-check-label">Entregado</label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Modificar</button>
+  </form>
+  <br>
+  <h5>Fotos</h5>
+  <div class="text-center">
+    {% if ticket.product_image1 %}
+      <img src="/media/{{ ticket.product_image1 }}" class="rounded" alt="Foto del Producto" style="max-width: 300px; max-height: 300px;">
+    {% endif %}
+
+    {% if ticket.product_image2 %}
+      <img src="/media/{{ ticket.product_image2 }}" class="rounded" alt="Foto del Producto" style="max-width: 300px; max-height: 300px;">
+    {% endif %}
+
+    {% if ticket.product_image3 %}
+      <img src="/media/{{ ticket.product_image3 }}" class="rounded" alt="Foto del Producto" style="max-width: 300px; max-height: 300px;">
+    {% endif %}
+    
+  </div>
+  <br>
+
+  {% endblock %}
