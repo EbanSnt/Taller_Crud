@@ -3,11 +3,11 @@ from datetime import date
 # Create your models here.
 class Customers(models.Model):
     name = models.CharField(max_length=70)
-    telephone_number = models.IntegerField()
+    telephone_number = models.BigIntegerField()
     
 
 class Tickets(models.Model):
-    ticket_number = models.IntegerField()
+    ticket_number = models.BigIntegerField()
     customer_id = models.ForeignKey(Customers, on_delete=models.SET_NULL,null=True)
     product = models.CharField(max_length=30)
     trademark = models.CharField(max_length=30)
