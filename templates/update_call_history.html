@@ -1,0 +1,38 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}Llamadas{% endblock %}
+</head>
+
+{% block content %}
+<h2 class="main_titles">Modificar Registro de llamada</h2>
+<br>
+<form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label  class="form-label">Cliente</label>
+        <select name="customer_id" id="customer_id" required>
+          {% for customer in customers %}
+            {% if customer.name == call.customer_id.name %}
+                <option value="{{ call.customer_id.id }}" selected>{{ call.customer_id.name }}</option>
+            {% endif %}
+            <option value="{{ customer.id }}">{{ customer.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" aria-describedby="emailHelp" name="date" value="{{ call.date|date:'Y-m-d' }}" >
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descripcion</label>
+        <textarea type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description" cols="30" rows="10">{{ call.description }}</textarea>
+
+      </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+
+  {% endblock %}

@@ -9,14 +9,19 @@
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" aria-describedby="emailHelp" name="date" value="{{ ticket.date|date:'Y-m-d' }}" required>
+    </div>
+
+    <div class="mb-3">
       <label  class="form-label">Numero de presupuesto</label>
-      <input type="text" class="form-control"  aria-describedby="emailHelp" name="ticket_number" value="{{ ticket.ticket_number}}">
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="ticket_number" value="{{ ticket.ticket_number }}" required>
       <div  class="form-text">Introducir Nombre Completo (Persona o Empresa)</div>
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Cliente</label>
-        <select name="customer_id" id="customer_id">
+        <select name="customer_id" id="customer_id" required>
           {% for customer in customers %}
             {% if customer.name == ticket.customer_id.name %}
                 <option value="{{ ticket.customer_id.id }}" selected>{{ ticket.customer_id.name }}</option>
@@ -28,32 +33,32 @@
 
     <div class="mb-3">
       <label  class="form-label">Producto</label>
-      <input type="text" class="form-control"  aria-describedby="emailHelp" name="product" value="{{ ticket.product }}">
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="product" value="{{ ticket.product }}" required>
     </div>
 
     <div class="mb-3">
       <label  class="form-label">Marca</label>
-      <input type="text" class="form-control"  aria-describedby="emailHelp" name="trademark" value="{{ ticket.trademark }}">
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="trademark" value="{{ ticket.trademark }}" required>
     </div>
   
     <div class="mb-3">
       <label  class="form-label">Modelo</label>
-      <input type="text" class="form-control"  aria-describedby="emailHelp" name="version" value="{{ ticket.version }}">
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="version" value="{{ ticket.version }}" required>
     </div>
 
     <div class="mb-3">
       <label  class="form-label">Numero de Serie</label>
-      <input type="text" class="form-control"  aria-describedby="emailHelp" name="serial_number" value="{{ ticket.serial_number }}">
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="serial_number" value="{{ ticket.serial_number }}" required>
     </div>
 
     <div class="mb-3">
       <label  class="form-label">Falla</label>
-      <input type="text" class="form-control"  aria-describedby="emailHelp" name="failure" value="{{ ticket.failure }}">
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="failure" value="{{ ticket.failure }}" required>
     </div>
 
     <div class="mb-3">
       <label  class="form-label">Descripcion</label>
-      <textarea class="form-control"  aria-describedby="emailHelp" name="description"  rows="3">{{ ticket.description }}</textarea>
+      <textarea class="form-control"  aria-describedby="emailHelp" name="description"  cols="30" rows="10">{{ ticket.description }}</textarea>
     </div>
 
     <div class="mb-3 form-check">

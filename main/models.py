@@ -4,9 +4,11 @@ from datetime import date
 class Customers(models.Model):
     name = models.CharField(max_length=70)
     telephone_number = models.BigIntegerField()
+    telephone_number2 = models.BigIntegerField(default=0)
     
 
 class Tickets(models.Model):
+    date = models.DateField()
     ticket_number = models.BigIntegerField()
     customer_id = models.ForeignKey(Customers, on_delete=models.SET_NULL,null=True)
     product = models.CharField(max_length=30)
@@ -21,10 +23,18 @@ class Tickets(models.Model):
     local = models.BooleanField(default=True)
 
 class WarrantyProducts(models.Model):
+    date = models.DateField()
     ticket_id = models.ForeignKey(Tickets, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=300)
     local = models.BooleanField(default=True)
 
 class DeliveredProducts(models.Model):
     ticket_id = models.ForeignKey(Tickets, on_delete=models.SET_NULL, null=True)
-    date = models.DateField(default=date.today)
+    price = models.IntegerField()
+    invoice = models.CharField(max_length=30)
+    date = models.DateField()
+
+class CallHistory(models.Model):
+    customer_id = models.ForeignKey(Customers, on_delete=models.SET_NULL, null=True)
+    date = models.DateField()
+    description = models.CharField(max_length=300)

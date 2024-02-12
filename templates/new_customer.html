@@ -10,15 +10,22 @@
     {% csrf_token %}
     <div class="mb-3">
       <label class="form-label">Nombre</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="name" >
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="name" required >
       <div class="form-text">Introducir Nombre Completo (Persona o Empresa)</div>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Telefono</label>
-        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telephone_number">
+        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telephone_number" required>
         <div class="form-text">Introducir Telefono o Celular</div>
       </div>
+
+    <div class="mb-3">
+        <label class="form-label">Telefono Alternativo</label>
+        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telephone_number2">
+        <div class="form-text">Introducir Telefono o Celular (Opcional). Si no posee ninguno, ponga el numero 0</div>
+      </div>
+
     <button type="submit" class="btn btn-primary">Crear</button>
   </form>
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from main.models import Customers,Tickets,WarrantyProducts,DeliveredProducts
+from main.models import Customers,Tickets,WarrantyProducts,DeliveredProducts,CallHistory
 
 
 
@@ -17,8 +17,9 @@ def create_customer(request):
         #Se toman los datos del formulario
         name = request.POST["name"]
         telephone_number = request.POST["telephone_number"]
+        telephone_number2 = request.POST["telephone_number2"]
         #Se crea el nuevo cliente
-        Customers.objects.create(name=name,telephone_number=telephone_number)
+        Customers.objects.create(name=name,telephone_number=telephone_number,telephone_number2=telephone_number2)
         return redirect("all_customers")
     else:
         return render(request, "new_customer.html")
@@ -31,6 +32,7 @@ def create_ticket(request):
     customers = Customers.objects.all()
     if request.method == "POST":
         #Se toman los datos del formulario
+        date = request.POST["date"]
         ticket_number = request.POST["ticket_number"]
         customer_id = request.POST["customer_id"]
         #Aqui se toma el id del "customer", para luego pasarle por parametro un objeto y no un numero. Ya que es una llave Foranea
@@ -45,7 +47,7 @@ def create_ticket(request):
         product_image3 = request.FILES.get("product_image3")
         description = request.POST["description"]
         #Se crea el nuevo presupuesto
-        Tickets.objects.create(ticket_number=ticket_number,customer_id=customer,product=product,trademark=trademark,version=version,serial_number=serial_number,failure=failure,product_image1=product_image1,product_image2=product_image2,product_image3=product_image3,description=description)
+        Tickets.objects.create(date=date,ticket_number=ticket_number,customer_id=customer,product=product,trademark=trademark,version=version,serial_number=serial_number,failure=failure,product_image1=product_image1,product_image2=product_image2,product_image3=product_image3,description=description)
         return redirect("all_tickets")
     else:
         context = {"customers":customers}
@@ -60,11 +62,12 @@ def create_warranty_product(request):
     context = {"tickets":tickets}
     if request.method == "POST":
         # Toma los datos del formulario
+        date = request.POST["date"]
         ticket_id = request.POST["ticket_id"]
         #Aqui se toma el id del "ticket", para luego pasarle por parametro un objeto y no un numero. Ya que es una llave Foranea
         ticket = Tickets.objects.get(id=ticket_id)
         description = request.POST["description"]
-        WarrantyProducts.objects.create(ticket_id=ticket,description=description)
+        WarrantyProducts.objects.create(date=date,ticket_id=ticket,description=description)
         return redirect("all_warranty_products")
     else:  
         return render(request, "new_warranty_product.html",context)
@@ -81,10 +84,31 @@ def create_delivered_product(request):
         ticket_id = request.POST["ticket_id"]
         #Aqui se toma el id del "ticket", para luego pasarle por parametro un objeto y no un numero. Ya que es una llave Foranea
         ticket = Tickets.objects.get(id=ticket_id)
-        DeliveredProducts.objects.create(ticket_id=ticket)
+        price = request.POST["price"]
+        invoice = request.POST["invoice"]
+        date = request.POST["date"]
+        DeliveredProducts.objects.create(ticket_id=ticket,price=price,date=date,invoice=invoice)
         return redirect("all_delivered_products")
     else:
         return render(request, "new_delivered_product.html",context)
+
+
+def create_call(request):
+    """Crea una nueva llamada"""
+    customers = Customers.objects.all()
+    context = {"customers":customers}
+    if request.method == "POST":
+        #Se toman los datos del formulario
+        customer_id = request.POST["customer_id"]
+        #Aqui se toma el id del "customer", para luego pasarle por parametro un objeto y no un numero. Ya que es una llave Foranea
+        customer = Customers.objects.get(id=customer_id)
+        date = request.POST["date"]
+        description = request.POST["description"]
+        #Se crea la nueva llamada
+        CallHistory.objects.create(customer_id=customer,date=date,description=description)
+        return redirect("all_calls")
+    else:
+        return render(request, "new_call_history.html",context)
     
 ### TODOS LOS "READ" ###
 
@@ -143,6 +167,20 @@ def show_all_delivered_products(request):
         return render(request, "delivered_products.html")
 
 
+def show_all_calls_history(request):
+    """Lista todas las llamadas"""
+    try:
+        calls = CallHistory.objects.all()
+        if 'customer_search' in request.GET:
+            #Sirve para filtrar las llamadas, de acuerdo al nombre de su cliente(busca coincidencias)
+            customer_search = request.GET["customer_search"]
+            calls = calls.filter(customer_id__name__icontains=customer_search)
+        context = {"calls":calls}
+        return render(request, "call_history.html",context)
+    except:
+        context = {"calls":calls}
+        return render(request, "call_history.html")
+
 ### TODOS LOS "UPDATE" ###
     # En estas vista se pueden ver mas detalles, como asi tambien, la
     # posibilidad de modificar datos
@@ -158,6 +196,7 @@ def update_customer(request,customer_id):
         if request.method == "POST":
             customer.name = request.POST["name"]
             customer.telephone_number = request.POST["telephone_number"]
+            customer.telephone_number2 = request.POST["telephone_number2"]
             customer.save()
             return redirect("all_customers")
         else:
@@ -175,7 +214,7 @@ def update_ticket(request,ticket_id):
         customers = Customers.objects.all()
         context = {"customers":customers, "ticket":ticket}
         if request.method == "POST":
-            print(request.POST)
+            ticket.date = request.POST["date"]
             ticket.ticket_number = request.POST["ticket_number"]
             
             #Aqui se toma el id del "customer", para luego pasarle por parametro un objeto y no un numero. Ya que es una llave Foranea
@@ -216,7 +255,7 @@ def update_warranty_product(request,warranty_id):
             new_ticket_id = int(request.POST["ticket_id"])
             new_ticket = Tickets.objects.get(id=new_ticket_id)
             warranty_product.ticket_id = new_ticket
-
+            warranty_product.date = request.POST["date"]
             warranty_product.description = request.POST["description"]
 
             if request.POST.get("local") == "1":
@@ -243,6 +282,9 @@ def update_delivered_product(request,delivered_id):
             new_ticket_id = int(request.POST["ticket_id"])
             new_ticket = Tickets.objects.get(id=new_ticket_id)
             delivered_product.ticket_id = new_ticket
+            delivered_product.price = request.POST["price"]
+            delivered_product.invoice = request.POST["invoice"]
+            delivered_product.date = request.POST["date"]
 
             delivered_product.save()
             return redirect("all_delivered_products")
@@ -251,6 +293,29 @@ def update_delivered_product(request,delivered_id):
     except:
         return render(request, "update_delivered_product.html",context)
 
+def update_call(request,call_id):
+    """Actualiza una llamada"""
+    #Se pasa por parametro el id
+    try:
+        call = CallHistory.objects.get(id=call_id)
+        # Lista de Clientes. En caso de que quiera modificar el existente
+        customers = Customers.objects.all()
+        context = {"customers":customers, "call":call}
+        if request.method == "POST":
+            call.date = request.POST["date"]
+            call.description = request.POST["description"]
+            
+            #Aqui se toma el id del "customer", para luego pasarle por parametro un objeto y no un numero. Ya que es una llave Foranea
+            new_customer_id = int(request.POST["customer_id"])
+            new_customer = Customers.objects.get(id=new_customer_id)
+            call.customer_id = new_customer
+
+            return redirect("all_calls")
+        else:
+            return render(request, "update_call_history.html",context)
+    except:
+        return render(request, "update_call_history.html",context)
+    
 ### TODOS LOS "DELETE" ###
     
 def delete_customer(request,customer_id):
@@ -303,3 +368,16 @@ def delete_delivered_product(request,delivered_id):
         return redirect("delivered_products")
     except:
         return render(request,"delivered_products.html",context)
+    
+
+def delete_call(request,call_id):
+    """Borra un cliente"""
+    #Se pasa por parametro el id
+    calls = Customers.objects.all()
+    context = {"calls":calls}
+    try:
+        call = CallHistory.objects.get(id=call_id)
+        call.delete()
+        return redirect("all_calls")
+    except:
+        return render(request,"call_history.html",context)

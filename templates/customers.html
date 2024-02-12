@@ -27,6 +27,7 @@
         <th scope="col">ID</th>
         <th scope="col">Nombre</th>
         <th scope="col">Telefono</th>
+        <th scope="col">Telefono Alternativo</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -36,6 +37,12 @@
             <td>{{ customer.id }}</td>
             <td>{{ customer.name }}</td>
             <td>{{ customer.telephone_number }}</td>
+            {% if customer.telephone_number2 == 0 %}
+            <td> - </td>
+            {% else %}
+            <td>{{ customer.telephone_number2 }}</td>
+            {% endif %}
+            
             <td><a href="{% url 'update_customer' customer.id %}"><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
             <td><a href="{% url 'delete_customer' customer.id %}"><button type="button" class="btn btn-outline-danger" id="delete_button">Eliminar</button></a></td>
         </tr>

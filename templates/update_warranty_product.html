@@ -9,8 +9,13 @@
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" aria-describedby="emailHelp" name="date" value="{{ warranty_product.ticket_id.date|date:'Y-m-d'}}" required>
+    </div>
+
+    <div class="mb-3">
         <label class="form-label">Ticket</label>
-        <select name="ticket_id">
+        <select name="ticket_id" required>
           {% for ticket in tickets %}
             {% if warranty_product.ticket_id.id == ticket.id %}
                 <option value="{{ warranty_product.ticket_id.id }}" selected>{{ warranty_product.ticket_id.ticket_number }}</option>
@@ -24,7 +29,7 @@
 
     <div class="mb-3">
         <label  class="form-label">Descripcion</label>
-        <textarea type="text" class="form-control"  aria-describedby="emailHelp" name="description">{{ warranty_product.description }}</textarea>
+        <textarea type="text" class="form-control"  aria-describedby="emailHelp" name="description" cols="30" rows="10">{{ warranty_product.description }}</textarea>
       </div>
     
     <div class="mb-3 form-check">

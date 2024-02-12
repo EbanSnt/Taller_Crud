@@ -1,0 +1,35 @@
+{% extends 'header.html' %}
+<head>
+  {% block title %}Llamadas{% endblock %}
+</head>
+
+{% block content %}
+<h2 class="main_titles">Nueva LLamada</h2>
+<br>
+<form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <label class="form-label">Cliente</label>
+      <select name="customer_id" required>
+        {% for customer in customers %}
+          <option value="{{ customer.id }}">{{ customer.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" aria-describedby="emailHelp" name="date" required >
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descripcion</label>
+        <textarea type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description" required cols="30" rows="10"></textarea>
+
+      </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+
+  {% endblock %}

@@ -25,6 +25,7 @@
         <th scope="col">N°</th>
         <th scope="col">Descripcion</th>
         <th scope="col">Entregado</th>
+        <th scope="col">Fecha</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -38,6 +39,7 @@
             {% else %}
               <td>Si</td>
             {% endif %}
+            <td>{{ warranty.date|date:"d/m/Y" }}</td>
             <td><a href="{% url 'update_warranty_product' warranty.id %}"><button type="button" class="btn btn-outline-success">Detalles</button></a></td>
             <td><a href="{% url 'delete_warranty_product' warranty.id %}"><button type="button" class="btn btn-outline-danger">Eliminar</button></a></td>
         </tr>

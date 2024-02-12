@@ -9,13 +9,18 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" aria-describedby="emailHelp" name="date" required>
+    </div>
+
+    <div class="mb-3">
       <label class="form-label">Numero de presupuesto</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="ticket_number">
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="ticket_number" required>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Cliente</label>
-        <select name="customer_id">
+        <select name="customer_id" required>
           {% for customer in customers %}
             <option value="{{ customer.id }}">{{ customer.name }}</option>
           {% endfor %}
@@ -24,27 +29,27 @@
 
     <div class="mb-3">
       <label class="form-label">Producto</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="product">
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="product" required>
     </div>
 
     <div class="mb-3">
       <label class="form-label">Marca</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="trademark">
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="trademark" required>
     </div>
 
     <div class="mb-3">
       <label class="form-label">Modelo</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="version">
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="version" required>
     </div>
 
     <div class="mb-3">
       <label class="form-label">Numero de Serie</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="serial_number">
-    </div>
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="serial_number" required>
+    </div> 
 
     <div class="mb-3">
       <label class="form-label">Falla</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="failure">
+      <input type="text" class="form-control" aria-describedby="emailHelp" name="failure" required>
     </div>
 
     <h5>Una vez que se cree el registro, las fotos no se pueden modificar</h5>
@@ -66,8 +71,8 @@
 
     <div class="mb-3">
       <label class="form-label">Descripcion</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="description">
-    </div>
+      <textarea type="text" class="form-control" aria-describedby="emailHelp" name="description">
+    </div><textarea cols="30" rows="10"></textarea>
 
     <button type="submit" class="btn btn-primary">Crear</button>
   </form>

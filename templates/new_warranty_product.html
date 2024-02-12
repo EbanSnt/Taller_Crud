@@ -9,8 +9,13 @@
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" aria-describedby="emailHelp" name="date" required>
+    </div>
+
+    <div class="mb-3">
         <label class="form-label">Presupuesto</label>
-        <select name="ticket_id">
+        <select name="ticket_id" required>
           {% for ticket in tickets %}
             <option value="{{ ticket.id }}">{{ ticket.ticket_number }}</option>
           {% endfor %}
@@ -19,7 +24,7 @@
 
     <div class="mb-3">
       <label class="form-label">Descripcion</label>
-      <input type="text" class="form-control" aria-describedby="emailHelp" name="description">
+      <textarea type="text" class="form-control" aria-describedby="emailHelp" name="description"><textarea cols="30" rows="10"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Crear</button>
   </form>
