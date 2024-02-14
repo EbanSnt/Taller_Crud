@@ -19,6 +19,10 @@ class Tickets(models.Model):
     product_image1 = models.ImageField(upload_to="products_images/")
     product_image2 = models.ImageField(upload_to="products_images/")
     product_image3 = models.ImageField(upload_to="products_images/")
+    product_image4 = models.ImageField(upload_to="products_images/")
+    product_image5 = models.ImageField(upload_to="products_images/")
+    product_image6 = models.ImageField(upload_to="products_images/")
+    product_image7 = models.ImageField(upload_to="products_images/")
     description = models.CharField(max_length=300)
     local = models.BooleanField(default=True)
 

@@ -45,9 +45,13 @@ def create_ticket(request):
         product_image1 = request.FILES.get("product_image1")
         product_image2 = request.FILES.get("product_image2")
         product_image3 = request.FILES.get("product_image3")
+        product_image4 = request.FILES.get("product_image4")
+        product_image5 = request.FILES.get("product_image5")
+        product_image6 = request.FILES.get("product_image6")
+        product_image7 = request.FILES.get("product_image7")
         description = request.POST["description"]
         #Se crea el nuevo presupuesto
-        Tickets.objects.create(date=date,ticket_number=ticket_number,customer_id=customer,product=product,trademark=trademark,version=version,serial_number=serial_number,failure=failure,product_image1=product_image1,product_image2=product_image2,product_image3=product_image3,description=description)
+        Tickets.objects.create(date=date,ticket_number=ticket_number,customer_id=customer,product=product,trademark=trademark,version=version,serial_number=serial_number,failure=failure,product_image1=product_image1,product_image2=product_image2,product_image3=product_image3,product_image4=product_image4,product_image5=product_image5,product_image6=product_image6,product_image7=product_image7,description=description)
         return redirect("all_tickets")
     else:
         context = {"customers":customers}
